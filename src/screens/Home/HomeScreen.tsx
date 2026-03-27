@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import ProductCard from "../../src/components/ProductCard";
+import ProductCard from "../../components/ProductCard";
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+}
 
 export default function HomeScreen() {
   const router = useRouter();
   const [isFocused, setIsFocused] = useState(false);
-  const [products, setProducts] = useState<any[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
+  // Fetch products from API
   const fetchProducts = async () => {
     try {
       const response = await axios.get("https://fakestoreapi.com/products");
@@ -26,8 +41,11 @@ export default function HomeScreen() {
     }
   };
 
-  useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
+  // Filter products based on search
   useEffect(() => {
     const filtered = products.filter((item) =>
       item.title.toLowerCase().includes(search.toLowerCase())
@@ -35,18 +53,27 @@ export default function HomeScreen() {
     setFilteredProducts(filtered);
   }, [search, products]);
 
-  if (loading) return (
-    <View style={styles.center}>
-      <ActivityIndicator size="large" />
-      <Text>Loading products...</Text>
-    </View>
-  );
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" />
+        <Text>Loading products...</Text>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
       <View style={styles.container}>
         <Text style={styles.header}>Welcome 👋</Text>
-        <View style={[styles.searchBox, { borderColor: isFocused ? "#E47911" : "#ddd" }]}>
+
+        {/* Search Box */}
+        <View
+          style={[
+            styles.searchBox,
+            { borderColor: isFocused ? "#E47911" : "#ddd" },
+          ]}
+        >
           <Ionicons name="search-outline" size={20} color="#888" />
           <TextInput
             placeholder="Search products..."
@@ -58,10 +85,14 @@ export default function HomeScreen() {
           />
         </View>
 
+        {/* No Results */}
         {filteredProducts.length === 0 && (
-          <Text style={{ textAlign: "center", marginTop: 20 }}>No products found</Text>
+          <Text style={{ textAlign: "center", marginTop: 20 }}>
+            No products found
+          </Text>
         )}
 
+        {/* Product List */}
         <FlatList
           data={filteredProducts}
           keyExtractor={(item) => item.id.toString()}
@@ -80,9 +111,33 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { paddingHorizontal: 16 },
-  header: { fontSize: 22, fontWeight: "bold", marginBottom: 15 },
-  searchBox: { flexDirection: "row", alignItems: "center", backgroundColor: "#f9f9f9", borderRadius: 32, paddingHorizontal: 16, marginBottom: 15, height: 45, borderWidth: 1, borderColor: "#ddd" },
-  input: { flex: 1, marginLeft: 10, height: "100%" },
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
+  container: {
+    paddingHorizontal: 16,
+  },
+  header: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
+  searchBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f9f9f9",
+    borderRadius: 32,
+    paddingHorizontal: 16,
+    marginBottom: 15,
+    height: 45,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    height: "100%",
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
