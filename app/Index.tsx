@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import SplashScreen from "../app/splashscreen";
+import SplashScreen from "../app/SplashScreen";
 
 export default function Index() {
   const router = useRouter();
