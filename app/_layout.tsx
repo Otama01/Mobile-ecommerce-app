@@ -1,11 +1,15 @@
-import React from "react";
-import { AuthProvider } from "../src/context/AuthContext";
+import { Stack } from "expo-router";
+import { WishlistProvider } from "../src/context/WishlistContext";
 import { CartProvider } from "../src/context/CartContext";
 
-export default function Layout({ children }: any) {
+export default function RootLayout() {
   return (
-    <AuthProvider>
-      <CartProvider>{children}</CartProvider>
-    </AuthProvider>
+    <CartProvider>
+      <WishlistProvider>
+        <Stack
+          screenOptions={{ headerShown: false }}
+        />
+      </WishlistProvider>
+    </CartProvider>
   );
 }

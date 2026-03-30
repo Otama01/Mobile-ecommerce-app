@@ -1,18 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, Button } from "react-native";
 
-const SuccessScreen: React.FC = () => {
-  // TODO: Show order success message, clear cart, navigation options
+interface SuccessScreenProps {
+  onContinue: () => void;
+}
 
+export default function SuccessScreen({ onContinue }: SuccessScreenProps) {
   return (
-    <View style={styles.container}>
-      <Text>Order Successful!</Text>
+    <View>
+      <Text>Order Successful 🎉</Text>
+      <Button title="OK" onPress={onContinue} />
     </View>
   );
-};
-
-export default SuccessScreen;
-
-const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", justifyContent: "center" },
-});
+}

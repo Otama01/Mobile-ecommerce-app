@@ -14,7 +14,7 @@ export default function splashscreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
 
       {/* Just the app name, no logo */}
       <Text style={styles.appName}>OtamaShop</Text>

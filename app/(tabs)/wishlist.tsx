@@ -1,113 +1,91 @@
+// app/(tabs)/wishlist.tsx
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useWishlist } from "../../src/context/WishlistContext";
-import { useRouter, Stack } from "expo-router";
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useWishlist, Product } from "../../src/context/WishlistContext";
 
 export default function WishlistScreen() {
   const { wishlist, toggleWishlist } = useWishlist();
-  const router = useRouter();
+
+  const renderItem = ({ item }: { item: Product }) => (
+    <View style={styles.card}>
+      <Image source={{ uri: item.image }} style={styles.image} />
+      <View style={styles.info}>
+        <Text numberOfLines={2} style={styles.title}>{item.title}</Text>
+        <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+        <TouchableOpacity style={styles.btn} onPress={() => toggleWishlist(item)}>
+          <Text style={styles.btnText}>Remove</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 
   return (
-    <>
-      <Stack.Screen options={{ title: "Wishlist" }} />
-
-      <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-        {wishlist.length === 0 ? (
-          <View style={styles.center}>
-            <Text>No items in wishlist ❤️</Text>
-          </View>
-        ) : (
-          <FlatList
-            data={wishlist}
-            keyExtractor={(item) => item.id.toString()}
-            contentContainerStyle={{ padding: 16 }}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.card}
-                onPress={() =>
-                  router.push(`/productdetails/${item.id}`)
-                }
-              >
-                <Image source={{ uri: item.image }} style={styles.image} />
-
-                <View style={styles.info}>
-                  <Text numberOfLines={2} style={styles.title}>
-                    {item.title}
-                  </Text>
-
-                  <Text style={styles.price}>${item.price}</Text>
-
-                  {/* ❤️ Remove from wishlist */}
-                  <Text
-                    onPress={() => toggleWishlist(item)}
-                    style={styles.remove}
-                  >
-                    Remove 
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        )}
-      </SafeAreaView>
-    </>
+    <View style={styles.container}>
+      {wishlist.length === 0 ? (
+        <Text style={styles.emptyText}>Your wishlist is empty 💔</Text>
+      ) : (
+        <FlatList
+          data={wishlist}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        />
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 16,
     backgroundColor: "#fff",
   },
-
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  emptyText: {
+    textAlign: "center",
+    marginTop: 50,
+    fontSize: 16,
+    color: "#555",
   },
-
   card: {
     flexDirection: "row",
     marginBottom: 15,
-    backgroundColor: "#fff",
+    marginTop: 60,
+    backgroundColor: "#f9f9f9",
     borderRadius: 10,
     padding: 10,
     elevation: 3,
   },
-
   image: {
     width: 80,
     height: 80,
     resizeMode: "contain",
+    borderRadius: 8,
   },
-
   info: {
     flex: 1,
     marginLeft: 10,
+    justifyContent: "space-between",
   },
-
   title: {
     fontSize: 14,
     fontWeight: "500",
   },
-
   price: {
     fontSize: 16,
     fontWeight: "bold",
     marginVertical: 5,
   },
-
-  remove: {
-    marginTop: 10,
-    color: "red",
-    fontSize: 13,
+  btn: {
+    marginTop: 5,
+    backgroundColor: "#E47911",
+    padding: 6,
+    borderRadius: 6,
+    alignItems: "center",
+  },
+  btnText: {
+    color: "#fff",
+    fontWeight: "600",
+    fontSize: 14,
   },
 });

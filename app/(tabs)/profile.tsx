@@ -11,7 +11,6 @@ interface Order {
   total: number;
 }
 
-// Cart item type from your CartContext
 interface CartItem {
   id: number;
   title: string;
@@ -23,7 +22,7 @@ interface CartItem {
 export default function ProfileScreen() {
   const { cart, logout } = useCart();
 
-  // Convert cart items to orders for display
+
   const [orders] = useState<Order[]>(
     cart.map((item: CartItem, index: number) => ({
       id: index + 1,
@@ -45,8 +44,8 @@ export default function ProfileScreen() {
         </View>
 
         {/* User Info */}
-        <Text style={styles.name}>John Doe</Text>
-        <Text style={styles.email}>john.doe@example.com</Text>
+        <Text style={styles.name}>Oluwatobi Dawodu</Text>
+        <Text style={styles.email}>holutoby@gmail.com</Text>
 
         {/* Order History */}
         <Text style={styles.sectionTitle}>Order History</Text>
