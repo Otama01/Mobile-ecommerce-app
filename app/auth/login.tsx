@@ -22,10 +22,9 @@ const LoginScreen = () => {
     }
 
     try {
-
       await AsyncStorage.setItem("userToken", "loggedIn");
 
-      router.replace ("/(tabs)"); 
+      router.replace("/(tabs)"); 
     } catch (err) {
       setError("Something went wrong");
     }
@@ -55,7 +54,7 @@ const LoginScreen = () => {
       />
 
       <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={handleLogin} />
+        <Button title="Login" onPress={handleLogin} color="#a606a9" />
       </View>
 
       <Text
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   input: {
-    width: "100%",             // full width
+    width: "100%",
     borderWidth: 1,
     borderColor: "#ccc",
     padding: 12,
@@ -93,7 +92,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
-    marginTop: 10,
+    marginTop: 16,
+    borderRadius: 8,
+      backgroundColor: "#a606a9",
+      height: 50,
+      justifyContent: "center",
+  
   },
   error: {
     color: "red",
@@ -101,6 +105,6 @@ const styles = StyleSheet.create({
   },
   link: {
     marginTop: 20,
-    color: "blue",
+    color: "#a606a9#",
   },
 });

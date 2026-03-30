@@ -89,14 +89,27 @@ This structure separates concerns and improves code readability.
 
 ##  Screenshots
 
+# Splash Screen
+![Splash](assets/images/screenshots/screenshot.splashscreen.png)
 
-* Splash Screen
-* Login Screen
-* Home Screen
-* Product Details
-* Cart Screen
-* Checkout Screen
-* Profile Screen
+# Login Screen
+![Login](assets/images/screenshots/screenshot.loginscreen.png)
+
+# Home Screen
+![Home](assets/images/screenshots/screenshot.homescreen.png)
+
+# Cart Screen
+![Cart](assets/images/screenshots/screenshot.cartscreen.png)
+
+# Checkout Screen
+![Checkout](assets/images/screenshots/screenshot.checkoutscreen.png)
+
+# Profile Screen
+![Profile](assets/images/screenshots/screenshot.profilescreen.png)
+
+# Product details Screen
+![Product details](assets/images/screenshots/screenshortproductdetails.png)
+
 
 ---
 

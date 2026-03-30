@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useCart } from "../../src/context/CartContext"; // Make sure you have CartContext
-
+import { useCart } from "../../src/context/CartContext"; 
+import { useRouter } from "expo-router";
 
 interface Order {
   id: number;
@@ -20,8 +20,13 @@ interface CartItem {
 }
 
 export default function ProfileScreen() {
-  const { cart, logout } = useCart();
+  const { cart, clearCart } = useCart(); // ✅ use clearCart instead
+  const router = useRouter();
 
+  const handleLogout = () => {
+    clearCart(); // optional but good UX
+    router.replace ("/auth/login"); // ✅ redirect properly
+  };
 
   const [orders] = useState<Order[]>(
     cart.map((item: CartItem, index: number) => ({
@@ -35,6 +40,7 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
+        
         {/* Profile Image */}
         <View style={styles.profileImageContainer}>
           <Image
@@ -64,53 +70,91 @@ export default function ProfileScreen() {
         )}
 
         {/* Logout Button */}
-        <TouchableOpacity style={styles.logoutBtn} onPress={logout}>
+        <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
+
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
-  content: { padding: 20, alignItems: "center" },
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+  },
+  content: {
+    padding: 20,
+  },
   profileImageContainer: {
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 5,
+  width: 120,
+  height: 120,
+  borderRadius: 60, 
+  justifyContent: "center",
+  alignItems: "center",
+  overflow: "hidden", 
+  marginBottom: 20,
+
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 4 },
+  shadowOpacity: 0.2,
+  shadowRadius: 6,
+  elevation: 5,
+},
+  profileImage: {
+    width: 120,
+    height: 120,
     borderRadius: 60,
   },
-  profileImage: { width: 120, height: 120, borderRadius: 60 },
-  name: { fontSize: 22, fontWeight: "bold", marginBottom: 4 },
-  email: { fontSize: 16, color: "#666", marginBottom: 20 },
-  sectionTitle: { fontSize: 18, fontWeight: "600", alignSelf: "flex-start", marginBottom: 10 },
-  emptyText: { marginBottom: 20, fontSize: 14, color: "#888" },
+  name: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 5,
+  },
+  email: {
+    fontSize: 14,
+    color: "#666",
+    textAlign: "center",
+    marginBottom: 30,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
   orderCard: {
-    width: "100%",
-    backgroundColor: "#f9f9f9",
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    backgroundColor: "#fff",
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 8,
   },
-  orderItem: { fontSize: 16, fontWeight: "500" },
-  orderDetails: { fontSize: 14, color: "#555", marginTop: 4 },
+  orderItem: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 5,
+  },
+  orderDetails: {
+    fontSize: 14,
+    color: "#666",
+  },
+  emptyText: {
+    fontSize: 14,
+    color: "#999",
+    textAlign: "center",
+    marginVertical: 20,
+  },
   logoutBtn: {
-    marginTop: 30,
-    backgroundColor: "#E47911",
-    paddingVertical: 14,
-    paddingHorizontal: 40,
-    borderRadius: 10,
+    backgroundColor: "#BE2727",
+    padding: 15,
+    borderRadius: 8,
     alignItems: "center",
-    alignSelf: "stretch",
+    marginTop: 30,
   },
-  logoutText: { color: "#fff", fontWeight: "600", fontSize: 16, textAlign: "center" },
+  logoutText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });

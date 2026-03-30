@@ -64,6 +64,10 @@ const styles = StyleSheet.create({
   itemPrice: { fontSize: 16, fontWeight: "600" },
   divider: { height: 1, backgroundColor: "#eee", marginVertical: 16 },
   total: { fontSize: 20, fontWeight: "bold", marginBottom: 20 },
-  btn: { backgroundColor: "#180CBD", padding: 16, borderRadius: 8, alignItems: "center" },
-  btnText: { color: "#fff", fontWeight: "600", fontSize: 16 },
+  btn: { backgroundColor: "#a606a9",
+     padding: 16,
+      borderRadius: 8, 
+      alignItems: "center" 
+    },
+  btnText: { color: "white", fontWeight: "600", fontSize: 16 },
 });

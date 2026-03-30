@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   total: { fontSize: 18, fontWeight: "bold", marginBottom: 10 },
 
   checkoutBtn: {
-    backgroundColor: "#E47911",
+    backgroundColor: "#a606a9",
     padding: 15,
     borderRadius: 8,
     alignItems: "center",

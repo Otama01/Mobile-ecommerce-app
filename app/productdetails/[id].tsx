@@ -75,7 +75,7 @@ export default function ProductDetails() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
-    paddingTop: 20,
+    paddingTop: 30,
     paddingBottom: 40,
   },
 

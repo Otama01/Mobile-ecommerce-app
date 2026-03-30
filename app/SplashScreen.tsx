@@ -1,23 +1,20 @@
-import React, { useEffect } from "react";
-import { View, Text, StyleSheet, StatusBar } from "react-native";
+import { View, Text } from "react-native";
+import { useEffect } from "react";
 import { useRouter } from "expo-router";
+import { StyleSheet } from "react-native";
 
-export default function splashscreen() {
+export default function SplashScreen() {
   const router = useRouter();
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      router.replace("/"); // Go to Home or Login
-    }, 2000); // 2 seconds
-    return () => clearTimeout(timeout);
+    setTimeout(() => {
+      router.replace ("/auth/login"); // or /(tabs)/index
+    }, 2000);
   }, []);
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
-
-      {/* Just the app name, no logo */}
-      <Text style={styles.appName}>OtamaShop</Text>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text style={{ fontSize: 24 }}>OtamaShop</Text>
     </View>
   );
 }
@@ -32,6 +29,6 @@ const styles = StyleSheet.create({
   appName: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#E47911",
+    color: "#E411A8",
   },
 });

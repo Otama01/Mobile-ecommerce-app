@@ -71,7 +71,7 @@ export default function HomeScreen() {
         <View
           style={[
             styles.searchBox,
-            { borderColor: isFocused ? "#E47911" : "#ddd" },
+            { borderColor: isFocused ? "#575553" : "#ddd" },
           ]}
         >
           <Ionicons name="search-outline" size={20} color="#888" />
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     height: 45,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#4E4848",
   },
   input: {
     flex: 1,
